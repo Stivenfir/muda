@@ -13,3 +13,7 @@ Base inicial del sistema ABC Mudanzas.
 - backend
 - docs
 - docker
+
+## Documento de avance
+- docs/levantamiento-requerimientos.md
+- docs/setup.md
