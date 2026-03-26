@@ -20,15 +20,19 @@ import { PermissionsGuard } from './guards/permissions.guard';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const jwtSecret = configService.get<string>('JWT_SECRET');
+        const jwtExpiresInSeconds = configService.get<string>('JWT_EXPIRES_IN_SECONDS');
+        const jwtExpiresInLegacy = configService.get<string>('JWT_EXPIRES_IN');
 
         if (!jwtSecret) {
-          throw new Error('JWT_SECRET es obligatorio');
+          throw new Error('JWT_SECRET es obligatorio. Configúralo en backend/.env (puedes usar backend/.env.example).');
         }
 
         return {
           secret: jwtSecret,
           signOptions: {
-            expiresIn: Number(configService.get<string>('JWT_EXPIRES_IN_SECONDS') || 28800),
+            expiresIn: (jwtExpiresInSeconds
+              ? Number(jwtExpiresInSeconds)
+              : jwtExpiresInLegacy || '8h') as any,
           },
         };
       },
