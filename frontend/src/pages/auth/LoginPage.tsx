@@ -38,17 +38,6 @@ function LoginPage() {
       <div className="bg-flow" />
 
       <div className={`login-modal ${isOpen ? 'is-open' : ''}`}>
-        <button
-          type="button"
-          className="theme-toggle"
-          onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
-          aria-label="Cambiar tema"
-        >
-          <span>Claro</span>
-          <span>Oscuro</span>
-          <i className={theme === 'dark' ? 'knob dark' : 'knob'} />
-        </button>
-
         <section className="modal-left">
           <div className="login-badge">Sistema ABC Mudanzas</div>
           <h1>Operación, trazabilidad y control en una sola plataforma</h1>
@@ -129,6 +118,18 @@ function LoginPage() {
         </section>
 
         <section className="modal-right">
+          <div className="theme-toggle-wrap">
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
+              aria-label="Cambiar tema"
+            >
+              <span className={theme === 'light' ? 'active' : ''}>Claro</span>
+              <span className={theme === 'dark' ? 'active' : ''}>Oscuro</span>
+            </button>
+          </div>
+
           <div className="route-grid" aria-hidden>
             <span className="dot d1" />
             <span className="dot d2" />
