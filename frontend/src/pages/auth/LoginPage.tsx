@@ -128,13 +128,20 @@ function LoginPage() {
           </div>
 
           <div className="route-grid" aria-hidden>
-            <span className="dot d1" />
-            <span className="dot d2" />
-            <span className="dot d3" />
-            <span className="dot d4" />
-            <span className="line l1" />
-            <span className="line l2" />
-            <span className="line l3" />
+            <svg viewBox="0 0 420 520" className="route-svg" role="presentation">
+              <path className="route-path" d="M48 78 C140 128, 230 146, 318 190" />
+              <path className="route-path" d="M82 238 C172 216, 234 184, 304 142" />
+              <path className="route-path" d="M74 286 C182 312, 250 336, 350 370" />
+
+              <circle className="route-node node-1" cx="48" cy="78" r="7" />
+              <circle className="route-node node-2" cx="312" cy="188" r="7" />
+              <circle className="route-node node-3" cx="84" cy="236" r="7" />
+              <circle className="route-node node-4" cx="350" cy="370" r="7" />
+            </svg>
+
+            <div className="route-chip chip-a">Origen</div>
+            <div className="route-chip chip-b">Tránsito</div>
+            <div className="route-chip chip-c">Destino</div>
           </div>
         </section>
       </div>
