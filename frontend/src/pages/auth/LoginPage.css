@@ -17,6 +17,16 @@
   transition: background 0.45s ease;
 }
 
+.bg-flow {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    linear-gradient(65deg, transparent 30%, rgba(133, 142, 163, 0.08) 45%, transparent 60%),
+    linear-gradient(155deg, transparent 38%, rgba(238, 114, 25, 0.08) 52%, transparent 66%);
+  animation: bgShift 18s linear infinite;
+}
+
 .login-experience.theme-light {
   background:
     radial-gradient(circle at 80% 12%, rgba(133, 142, 163, 0.28) 0%, transparent 35%),
@@ -206,6 +216,19 @@
   border: 0;
   background: rgba(133, 142, 163, 0.22);
   cursor: pointer;
+  color: #f8fbff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.theme-light .password-toggle {
+  color: #315173;
 }
 
 .input-group input:focus {
@@ -367,30 +390,49 @@
   border: 1px solid rgba(133, 142, 163, 0.4);
   border-radius: 999px;
   background: rgba(2, 36, 72, 0.6);
-  display: inline-flex;
-  gap: 6px;
-  padding: 4px 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 3px;
   cursor: pointer;
+  color: #dce4ef;
+  min-width: 116px;
+  overflow: hidden;
 }
 
 .theme-light .theme-toggle {
   background: rgba(255, 255, 255, 0.9);
+  color: #315173;
 }
 
 .theme-toggle span {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.5;
+  opacity: 0.85;
+  font-size: 0.74rem;
+  font-weight: 600;
   transition: all 0.2s ease;
+  z-index: 2;
 }
 
-.theme-toggle span.active {
-  opacity: 1;
-  background: rgba(238, 114, 25, 0.2);
+.theme-toggle .knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(238, 114, 25, 0.35);
+  transition: transform 0.24s ease, background 0.24s ease;
+}
+
+.theme-toggle .knob.dark {
+  transform: translateX(52px);
+  background: rgba(238, 114, 25, 0.35);
 }
 
 @media (max-width: 1040px) {
@@ -448,5 +490,14 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes bgShift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(120px);
   }
 }

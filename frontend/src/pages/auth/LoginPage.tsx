@@ -35,6 +35,7 @@ function LoginPage() {
     <div className={`login-experience theme-${theme}`}>
       <div className="ambient ambient-a" />
       <div className="ambient ambient-b" />
+      <div className="bg-flow" />
 
       <div className={`login-modal ${isOpen ? 'is-open' : ''}`}>
         <button
@@ -43,16 +44,17 @@ function LoginPage() {
           onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
           aria-label="Cambiar tema"
         >
-          <span className={theme === 'light' ? 'active' : ''}>☀️</span>
-          <span className={theme === 'dark' ? 'active' : ''}>🌙</span>
+          <span>Claro</span>
+          <span>Oscuro</span>
+          <i className={theme === 'dark' ? 'knob dark' : 'knob'} />
         </button>
 
         <section className="modal-left">
           <div className="login-badge">Sistema ABC Mudanzas</div>
-          <h1>Gestión integral de mudanzas internacionales</h1>
+          <h1>Operación, trazabilidad y control en una sola plataforma</h1>
           <p className="subtitle">
-            Centraliza el seguimiento operativo, la documentación, las alertas y la visibilidad
-            gerencial en tiempo real.
+            Una plataforma corporativa para coordinar operaciones de mudanza con mayor control,
+            visibilidad y eficiencia.
           </p>
 
           <form onSubmit={handleSubmit} className="login-form">
@@ -84,7 +86,29 @@ function LoginPage() {
                   onClick={() => setShowPassword((prev) => !prev)}
                   aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                 >
-                  {showPassword ? '🙈' : '👁️'}
+                  {showPassword ? (
+                    <svg viewBox="0 0 24 24" aria-hidden>
+                      <path
+                        d="M3 3l18 18m-3.6-3.6A10 10 0 012 12a10 10 0 014.2-4.9M10.7 10.7a2 2 0 102.6 2.6M14.1 14.1A4 4 0 019.9 9.9M9 4.7A10 10 0 0112 4c4.8 0 8.7 3.3 10 8a10.3 10.3 0 01-2.3 3.9"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" aria-hidden>
+                      <path
+                        d="M2 12s3.6-8 10-8 10 8 10 8-3.6 8-10 8S2 12 2 12zm10 4a4 4 0 100-8 4 4 0 000 8z"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
                 </button>
               </div>
             </div>
