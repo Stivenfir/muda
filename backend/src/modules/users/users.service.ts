@@ -17,24 +17,59 @@ export class UsersService {
         estaActivo: true,
         estadoEmpleado: 'ACTIVO',
       },
-      relations: {
-        roles: {
-          rol: true,
-        },
-      },
+      relations: this.getBaseRelations(),
     });
 
+    return this.mapEmpleado(empleado);
+  }
+
+  async findById(empleadoId: number) {
+    const empleado = await this.empleadosRepository.findOne({
+      where: {
+        empleadoId,
+        estaActivo: true,
+        estadoEmpleado: 'ACTIVO',
+      },
+      relations: this.getBaseRelations(),
+    });
+
+    return this.mapEmpleado(empleado);
+  }
+
+  private getBaseRelations() {
+    return {
+      roles: {
+        rol: {
+          permisos: {
+            permiso: true,
+          },
+        },
+      },
+    };
+  }
+
+  private mapEmpleado(empleado: PrEmpleado | null) {
     if (!empleado) {
       return null;
     }
 
-    const rolPrincipal = empleado.roles?.[0]?.rol?.codigoRol || 'SIN_ROL';
+    const roles = (empleado.roles ?? [])
+      .filter((rolAsignado) => rolAsignado.estaActivo && rolAsignado.rol?.estaActivo)
+      .map((rolAsignado) => rolAsignado.rol.codigoRol);
+
+    const permissions = (empleado.roles ?? []).flatMap((rolAsignado) =>
+      (rolAsignado.rol?.permisos ?? [])
+        .filter((permisoAsignado) => permisoAsignado.estaActivo && permisoAsignado.permiso?.estaActivo)
+        .map((permisoAsignado) => permisoAsignado.permiso.codigoPermiso),
+    );
 
     return {
       id: empleado.empleadoId,
       username: empleado.nombreUsuario,
       password: empleado.contrasenaHash,
-      role: rolPrincipal,
+      role: roles[0] || 'SIN_ROL',
+      roles,
+      permissions: Array.from(new Set(permissions)),
       isActive: empleado.estaActivo,
     };
   }

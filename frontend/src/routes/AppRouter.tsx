@@ -1,14 +1,16 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from '../pages/auth/LoginPage';
-import DashboardPage from '../pages/dashboard/DashboardPage';
 import ProfilePage from '../pages/system/ProfilePage';
 import PrivateRoute from './PrivateRoute';
+import { getToken } from '../utils/storage';
 
 function AppRouter() {
+  const hasSession = Boolean(getToken());
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<DashboardPage />} />
+        <Route path="/" element={<Navigate to={hasSession ? '/profile' : '/login'} replace />} />
 
         <Route path="/login" element={<LoginPage />} />
 
@@ -20,6 +22,8 @@ function AppRouter() {
             </PrivateRoute>
           }
         />
+
+        <Route path="*" element={<Navigate to={hasSession ? '/profile' : '/login'} replace />} />
       </Routes>
     </BrowserRouter>
   );
