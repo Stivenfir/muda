@@ -370,67 +370,77 @@
   text-transform: uppercase;
 }
 
-.benefits-grid {
+.system-visual {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  justify-items: center;
+  gap: 14px;
+  padding: 6px 0 2px;
 }
 
-.benefit-card {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(133, 142, 163, 0.32);
-  border-radius: 12px;
-  padding: 10px 12px;
-  box-shadow: 0 10px 20px rgba(2, 36, 72, 0.08);
-}
-
-.benefit-card strong {
-  display: block;
-  color: #13365d;
-  font-size: 0.79rem;
-  letter-spacing: 0.01em;
-}
-
-.benefit-card span {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.73rem;
-  color: rgba(39, 71, 105, 0.78);
-  line-height: 1.35;
-}
-
-.system-signal {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.signal-bar {
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(2, 36, 72, 0.14);
+.system-orbit {
+  width: 138px;
+  height: 138px;
+  border-radius: 50%;
+  border: 1px solid rgba(2, 36, 72, 0.18);
   position: relative;
-  overflow: hidden;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.35) 72%, transparent 100%);
 }
 
-.signal-bar::after {
+.system-orbit::before {
   content: '';
   position: absolute;
-  inset: 0;
-  width: 56%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, rgba(46, 159, 102, 0.72), rgba(238, 114, 25, 0.72));
-  animation: signalFlow 3.2s ease-in-out infinite;
+  inset: 18px;
+  border-radius: 50%;
+  border: 1px dashed rgba(2, 36, 72, 0.2);
+  animation: orbitRotate 12s linear infinite;
 }
 
-.signal-bar-b::after {
-  animation-delay: 0.35s;
+.orbit-dot {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--abc-orange);
+  box-shadow: 0 0 0 5px rgba(238, 114, 25, 0.18);
 }
 
-.signal-bar-c::after {
-  animation-delay: 0.7s;
+.orbit-dot-a {
+  top: 18px;
+  left: 50%;
+  margin-left: -5px;
+}
+
+.orbit-dot-b {
+  right: 20px;
+  bottom: 28px;
+  animation: dotPulse 2.8s ease-in-out infinite;
+}
+
+.orbit-dot-c {
+  left: 18px;
+  bottom: 32px;
+  background: #2e9f66;
+  box-shadow: 0 0 0 5px rgba(46, 159, 102, 0.16);
+  animation: dotPulse 2.8s ease-in-out 0.9s infinite;
+}
+
+.system-caption {
+  text-align: center;
+  max-width: 270px;
+}
+
+.system-caption strong {
+  display: block;
+  color: #13365d;
+  font-size: 0.88rem;
+}
+
+.system-caption span {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.74rem;
+  color: rgba(39, 71, 105, 0.8);
+  line-height: 1.35;
 }
 
 .kpi-row {
@@ -529,9 +539,6 @@
     min-height: 280px;
   }
 
-  .benefits-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @keyframes spin {
@@ -592,15 +599,22 @@
   }
 }
 
-@keyframes signalFlow {
+@keyframes orbitRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dotPulse {
   0%,
   100% {
-    transform: translateX(-25%);
-    opacity: 0.7;
+    transform: scale(1);
   }
   50% {
-    transform: translateX(70%);
-    opacity: 1;
+    transform: scale(1.15);
   }
 }
 

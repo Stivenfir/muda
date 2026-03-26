@@ -133,47 +133,31 @@ function LoginPage() {
               <strong>Tecnología diseñada para simplificar tu gestión diaria</strong>
               <div className="ops-pill-row">
                 <span>Gestión centralizada</span>
-                <span>Visibilidad en tiempo real</span>
                 <span>Ahorro de tiempo y recursos</span>
               </div>
             </header>
 
-            <div className="benefits-grid">
-              <div className="benefit-card">
-                <strong>Automatización inteligente</strong>
-                <span>Reduce tareas manuales y errores repetitivos.</span>
+            <div className="system-visual">
+              <div className="system-orbit">
+                <span className="orbit-dot orbit-dot-a" />
+                <span className="orbit-dot orbit-dot-b" />
+                <span className="orbit-dot orbit-dot-c" />
               </div>
 
-              <div className="benefit-card">
-                <strong>Control centralizado</strong>
-                <span>Un solo panel para coordinar toda la empresa.</span>
-              </div>
-
-              <div className="benefit-card">
-                <strong>Visibilidad completa</strong>
-                <span>Información actualizada para decisiones rápidas.</span>
-              </div>
-
-              <div className="benefit-card">
-                <strong>Ahorro operativo</strong>
-                <span>Menos retrabajos y mejor uso de recursos.</span>
-              </div>
-
-              <div className="system-signal">
-                <span className="signal-bar signal-bar-a" />
-                <span className="signal-bar signal-bar-b" />
-                <span className="signal-bar signal-bar-c" />
+              <div className="system-caption">
+                <strong>Una sola plataforma</strong>
+                <span>Automatiza tareas, concentra datos y acelera decisiones.</span>
               </div>
             </div>
 
             <div className="kpi-row">
               <div className="kpi-box">
-                <span>Automatización del sistema</span>
+                <span>Automatización</span>
                 <strong>35% menos tareas manuales</strong>
               </div>
               <div className="kpi-box">
-                <span>Gestión unificada</span>
-                <strong>1 panel para todo el equipo</strong>
+                <span>Visibilidad</span>
+                <strong>Control en tiempo real</strong>
               </div>
             </div>
           </div>
