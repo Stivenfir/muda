@@ -129,8 +129,13 @@ function LoginPage() {
 
           <div className="route-grid" aria-hidden>
             <header className="ops-header">
-              <p>Trazabilidad operativa</p>
-              <strong>Contenedor ABC-78421</strong>
+              <p>Sistema centralizado de operaciones</p>
+              <strong>Control total de la mudanza internacional</strong>
+              <div className="ops-pill-row">
+                <span>Automatización de operaciones</span>
+                <span>Visibilidad en tiempo real</span>
+                <span>Ahorro de tiempo y recursos</span>
+              </div>
             </header>
 
             <div className="route-column">
@@ -166,12 +171,12 @@ function LoginPage() {
 
             <div className="kpi-row">
               <div className="kpi-box">
-                <span>ETA total</span>
-                <strong>3 días 12 h</strong>
+                <span>Gestión centralizada</span>
+                <strong>10 hitos monitoreados</strong>
               </div>
               <div className="kpi-box">
-                <span>Último evento</span>
-                <strong>Salida almacén MAD</strong>
+                <span>Último evento validado</span>
+                <strong>Control documental completado</strong>
               </div>
             </div>
           </div>

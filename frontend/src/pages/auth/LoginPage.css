@@ -347,8 +347,27 @@
   margin-top: 5px;
   display: block;
   color: #143b65;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  line-height: 1.35;
   letter-spacing: 0.015em;
+}
+
+.ops-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.ops-pill-row span {
+  border-radius: 999px;
+  border: 1px solid rgba(2, 36, 72, 0.18);
+  background: rgba(255, 255, 255, 0.58);
+  color: rgba(20, 59, 101, 0.88);
+  font-size: 0.66rem;
+  letter-spacing: 0.03em;
+  padding: 4px 8px;
+  text-transform: uppercase;
 }
 
 .route-column {
@@ -496,7 +515,7 @@
 .kpi-box strong {
   display: block;
   margin-top: 6px;
-  font-size: 0.88rem;
+  font-size: 0.83rem;
   line-height: 1.3;
 }
 
