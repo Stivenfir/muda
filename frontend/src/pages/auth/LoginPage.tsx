@@ -129,10 +129,10 @@ function LoginPage() {
 
           <div className="route-grid" aria-hidden>
             <header className="ops-header">
-              <p>Sistema centralizado de operaciones</p>
-              <strong>Control total de la mudanza internacional</strong>
+              <p>Ventajas del sistema ABC Mudanzas</p>
+              <strong>Plataforma integral para gestionar todo el proceso</strong>
               <div className="ops-pill-row">
-                <span>Automatización de operaciones</span>
+                <span>Gestión centralizada</span>
                 <span>Visibilidad en tiempo real</span>
                 <span>Ahorro de tiempo y recursos</span>
               </div>
@@ -171,8 +171,8 @@ function LoginPage() {
 
             <div className="kpi-row">
               <div className="kpi-box">
-                <span>Gestión centralizada</span>
-                <strong>10 hitos monitoreados</strong>
+                <span>Automatización del sistema</span>
+                <strong>10 hitos ejecutados sin fricción</strong>
               </div>
               <div className="kpi-box">
                 <span>Último evento validado</span>
