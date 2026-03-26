@@ -7,6 +7,8 @@ function LoginPage() {
   const navigate = useNavigate();
   const { login, loading, error } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [showPassword, setShowPassword] = useState(false);
 
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('Admin123*');
@@ -30,17 +32,27 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-experience">
+    <div className={`login-experience theme-${theme}`}>
       <div className="ambient ambient-a" />
       <div className="ambient ambient-b" />
 
       <div className={`login-modal ${isOpen ? 'is-open' : ''}`}>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
+          aria-label="Cambiar tema"
+        >
+          <span className={theme === 'light' ? 'active' : ''}>☀️</span>
+          <span className={theme === 'dark' ? 'active' : ''}>🌙</span>
+        </button>
+
         <section className="modal-left">
           <div className="login-badge">Sistema ABC Mudanzas</div>
-          <h1>Movilidad internacional con control total</h1>
+          <h1>Gestión integral de mudanzas internacionales</h1>
           <p className="subtitle">
-            Plataforma empresarial para operaciones de mudanza internacional con trazabilidad, control
-            documental y alertas inteligentes.
+            Centraliza el seguimiento operativo, la documentación, las alertas y la visibilidad
+            gerencial en tiempo real.
           </p>
 
           <form onSubmit={handleSubmit} className="login-form">
@@ -57,14 +69,24 @@ function LoginPage() {
 
             <div className="input-group">
               <label htmlFor="password">Contraseña</label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Ingresa tu contraseña"
-                autoComplete="current-password"
-              />
+              <div className="password-wrap">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Ingresa tu contraseña"
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  {showPassword ? '🙈' : '👁️'}
+                </button>
+              </div>
             </div>
 
             <button type="submit" disabled={loading} className={loading ? 'is-loading' : ''}>
@@ -96,9 +118,10 @@ function LoginPage() {
           <div className="transport-panel">
             <h3>Centro de control logístico</h3>
             <ul>
-              <li>Seguimiento en tiempo real</li>
+              <li>Seguimiento por hitos</li>
               <li>Control documental</li>
               <li>Alertas inteligentes</li>
+              <li>Visibilidad operativa</li>
             </ul>
           </div>
 

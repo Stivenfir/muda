@@ -14,6 +14,14 @@
     radial-gradient(circle at 18% 90%, rgba(238, 114, 25, 0.14) 0%, transparent 34%),
     linear-gradient(135deg, #001935 0%, var(--abc-blue) 50%, #032d57 100%);
   font-family: Inter, Poppins, 'Segoe UI', Roboto, sans-serif;
+  transition: background 0.45s ease;
+}
+
+.login-experience.theme-light {
+  background:
+    radial-gradient(circle at 80% 12%, rgba(133, 142, 163, 0.28) 0%, transparent 35%),
+    radial-gradient(circle at 18% 90%, rgba(238, 114, 25, 0.16) 0%, transparent 34%),
+    linear-gradient(135deg, #e9eef5 0%, #dce5f1 50%, #eef2f8 100%);
 }
 
 .ambient {
@@ -56,6 +64,7 @@
   opacity: 0;
   transition: transform 0.65s ease, opacity 0.65s ease;
   overflow: hidden;
+  position: relative;
 }
 
 .login-modal.is-open {
@@ -68,6 +77,10 @@
   background: linear-gradient(160deg, rgba(3, 35, 69, 0.9) 0%, rgba(2, 36, 72, 0.72) 100%);
   display: flex;
   flex-direction: column;
+}
+
+.theme-light .modal-left {
+  background: linear-gradient(160deg, rgba(245, 248, 253, 0.96) 0%, rgba(233, 239, 248, 0.86) 100%);
 }
 
 .login-badge {
@@ -90,6 +103,7 @@
   line-height: 1.1;
   font-weight: 800;
   text-wrap: balance;
+  animation: itemIn 0.45s ease 0.15s both;
 }
 
 .subtitle {
@@ -97,11 +111,13 @@
   color: #d2dae8;
   max-width: 560px;
   line-height: 1.55;
+  animation: itemIn 0.45s ease 0.25s both;
 }
 
 .login-form {
   display: grid;
   gap: 15px;
+  animation: itemIn 0.45s ease 0.35s both;
 }
 
 .input-group {
@@ -125,6 +141,28 @@
   color: #eef2f8;
 }
 
+.theme-light .login-badge {
+  color: #17365d;
+}
+
+.theme-light .modal-left h1 {
+  color: #022448;
+  text-shadow: none;
+}
+
+.theme-light .subtitle {
+  color: #4b5f80;
+}
+
+.theme-light .input-group {
+  border-color: rgba(133, 142, 163, 0.45);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.theme-light .input-group label {
+  color: #2f466c;
+}
+
 .input-group input {
   border: 1px solid rgba(133, 142, 163, 0.6);
   border-radius: 10px;
@@ -136,6 +174,38 @@
 
 .input-group input::placeholder {
   color: rgba(230, 235, 244, 0.68);
+}
+
+.theme-light .input-group input {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(133, 142, 163, 0.55);
+  color: #1d3457;
+}
+
+.theme-light .input-group input::placeholder {
+  color: rgba(91, 106, 130, 0.7);
+}
+
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  width: 100%;
+  padding-right: 42px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 0;
+  background: rgba(133, 142, 163, 0.22);
+  cursor: pointer;
 }
 
 .input-group input:focus {
@@ -200,6 +270,12 @@
   justify-content: space-between;
 }
 
+.theme-light .modal-right {
+  background:
+    radial-gradient(circle at 24% 15%, rgba(238, 114, 25, 0.17) 0%, transparent 32%),
+    linear-gradient(170deg, rgba(255, 255, 255, 0.95) 0%, #f7f9fc 100%);
+}
+
 .route-grid {
   position: absolute;
   inset: 0;
@@ -242,6 +318,10 @@
   box-shadow: 0 14px 28px rgba(2, 36, 72, 0.12);
 }
 
+.theme-light .transport-panel {
+  background: rgba(255, 255, 255, 0.9);
+}
+
 .transport-panel h3 {
   margin: 0 0 10px;
   color: var(--abc-blue);
@@ -278,6 +358,40 @@
 .icon-strip span:nth-child(2) { animation-delay: 0.7s; }
 .icon-strip span:nth-child(3) { animation-delay: 1.5s; }
 .icon-strip span:nth-child(4) { animation-delay: 2.1s; }
+
+.theme-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  border: 1px solid rgba(133, 142, 163, 0.4);
+  border-radius: 999px;
+  background: rgba(2, 36, 72, 0.6);
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.theme-light .theme-toggle {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.theme-toggle span {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle span.active {
+  opacity: 1;
+  background: rgba(238, 114, 25, 0.2);
+}
 
 @media (max-width: 1040px) {
   .login-experience {
@@ -323,5 +437,16 @@
   50% {
     opacity: 1;
     transform: scale(1.12);
+  }
+}
+
+@keyframes itemIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
