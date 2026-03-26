@@ -328,41 +328,69 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  padding: 86px 30px 30px;
+  padding: 86px 28px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 16px;
+}
+
+.ops-header p {
+  margin: 0;
+  color: rgba(39, 71, 105, 0.74);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.ops-header strong {
+  margin-top: 5px;
+  display: block;
+  color: #143b65;
+  font-size: 0.95rem;
+  letter-spacing: 0.015em;
 }
 
 .route-column {
   position: relative;
   display: grid;
-  gap: 24px;
-  margin-left: 42px;
+  gap: 14px;
+  margin-left: 44px;
 }
 
 .route-step {
   position: relative;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(133, 142, 163, 0.38);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(133, 142, 163, 0.34);
   border-radius: 12px;
   padding: 10px 12px;
   color: #274769;
-  min-width: 210px;
+  min-height: 62px;
+  min-width: 220px;
   box-shadow: 0 10px 20px rgba(2, 36, 72, 0.1);
 }
 
-.route-step strong {
-  display: block;
-  font-size: 0.83rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.step-meta {
+  display: grid;
+  gap: 4px;
 }
 
-.route-step small {
+.step-meta strong {
   display: block;
-  font-size: 0.78rem;
-  margin-top: 4px;
+  font-size: 0.8rem;
+  text-transform: none;
+  letter-spacing: 0.015em;
+  color: #13365d;
+}
+
+.step-meta span {
+  display: block;
+  font-size: 0.74rem;
+  color: rgba(39, 71, 105, 0.78);
 }
 
 .route-step::before {
@@ -378,6 +406,11 @@
   box-shadow: 0 0 0 5px rgba(238, 114, 25, 0.16);
 }
 
+.route-step.is-complete::before {
+  background: #2e9f66;
+  box-shadow: 0 0 0 5px rgba(46, 159, 102, 0.15);
+}
+
 .route-step.is-active {
   border-color: rgba(238, 114, 25, 0.5);
 }
@@ -385,22 +418,57 @@
 .route-line {
   position: absolute;
   left: -23px;
-  top: 20px;
+  top: 12px;
   width: 2px;
-  height: calc(100% - 40px);
+  height: calc(100% - 24px);
   background: linear-gradient(to bottom, rgba(2, 36, 72, 0.12), rgba(2, 36, 72, 0.4));
+}
+
+.route-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48%;
+  background: linear-gradient(to bottom, rgba(46, 159, 102, 0.35), rgba(238, 114, 25, 0.28));
 }
 
 .route-marker {
   position: absolute;
   left: 50%;
-  width: 10px;
-  height: 10px;
-  margin-left: -4px;
+  width: 11px;
+  height: 11px;
+  margin-left: -4.5px;
   border-radius: 50%;
   background: var(--abc-orange);
-  box-shadow: 0 0 0 5px rgba(238, 114, 25, 0.2);
-  animation: travel 4.8s ease-in-out infinite;
+  box-shadow:
+    0 0 0 5px rgba(238, 114, 25, 0.2),
+    0 0 14px rgba(238, 114, 25, 0.35);
+  animation: travel 5.6s cubic-bezier(0.5, 0, 0.34, 1) infinite;
+}
+
+.status-chip {
+  border-radius: 999px;
+  border: 1px solid rgba(133, 142, 163, 0.45);
+  font-size: 0.66rem;
+  padding: 4px 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #385578;
+  background: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+}
+
+.status-chip.status-ok {
+  color: #22754c;
+  border-color: rgba(46, 159, 102, 0.5);
+  background: rgba(46, 159, 102, 0.14);
+}
+
+.status-chip.status-live {
+  color: #b05518;
+  border-color: rgba(238, 114, 25, 0.58);
+  background: rgba(238, 114, 25, 0.15);
 }
 
 .kpi-row {
@@ -410,7 +478,7 @@
 }
 
 .kpi-box {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.74);
   border: 1px solid rgba(133, 142, 163, 0.36);
   border-radius: 12px;
   padding: 10px;
@@ -428,7 +496,8 @@
 .kpi-box strong {
   display: block;
   margin-top: 6px;
-  font-size: 1rem;
+  font-size: 0.88rem;
+  line-height: 1.3;
 }
 
 .theme-toggle-wrap {
@@ -497,6 +566,10 @@
   .modal-right {
     min-height: 280px;
   }
+
+  .route-step {
+    min-width: 0;
+  }
 }
 
 @keyframes spin {
@@ -558,11 +631,16 @@
 }
 
 @keyframes travel {
-  0%,
-  100% {
+  0% {
     top: 0;
   }
-  50% {
+  45% {
+    top: calc(45% - 10px);
+  }
+  55% {
+    top: calc(45% - 10px);
+  }
+  100% {
     top: calc(100% - 12px);
   }
 }

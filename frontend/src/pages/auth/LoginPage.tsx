@@ -128,32 +128,50 @@ function LoginPage() {
           </div>
 
           <div className="route-grid" aria-hidden>
+            <header className="ops-header">
+              <p>Trazabilidad operativa</p>
+              <strong>Contenedor ABC-78421</strong>
+            </header>
+
             <div className="route-column">
-              <div className="route-step is-active">
-                <strong>Origen</strong>
-                <small>Recolección programada</small>
-              </div>
-              <div className="route-step">
-                <strong>Tránsito</strong>
-                <small>Seguimiento internacional</small>
-              </div>
-              <div className="route-step">
-                <strong>Destino</strong>
-                <small>Entrega coordinada</small>
-              </div>
               <div className="route-line">
+                <span className="route-progress" />
                 <span className="route-marker" />
+              </div>
+
+              <div className="route-step is-complete">
+                <div className="step-meta">
+                  <strong>Inventario y embalaje</strong>
+                  <span>Hoy · 08:10</span>
+                </div>
+                <small className="status-chip status-ok">Completado</small>
+              </div>
+
+              <div className="route-step is-active">
+                <div className="step-meta">
+                  <strong>Despacho internacional</strong>
+                  <span>ETA puerto · 6h</span>
+                </div>
+                <small className="status-chip status-live">En tránsito</small>
+              </div>
+
+              <div className="route-step">
+                <div className="step-meta">
+                  <strong>Aduana y entrega final</strong>
+                  <span>Programado · 29 Mar</span>
+                </div>
+                <small className="status-chip">Pendiente</small>
               </div>
             </div>
 
             <div className="kpi-row">
               <div className="kpi-box">
-                <span>ETA</span>
-                <strong>12 días</strong>
+                <span>ETA total</span>
+                <strong>3 días 12 h</strong>
               </div>
               <div className="kpi-box">
-                <span>Estado</span>
-                <strong>En curso</strong>
+                <span>Último evento</span>
+                <strong>Salida almacén MAD</strong>
               </div>
             </div>
           </div>
