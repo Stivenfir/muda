@@ -1,0 +1,236 @@
+.login-shell {
+  --abc-blue: #022448;
+  --abc-orange: #ee7219;
+  --abc-gray: #858ea3;
+  --abc-light: #f3f5fa;
+
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  overflow: hidden;
+  background: radial-gradient(circle at top right, #1e3353 0%, var(--abc-blue) 58%, #00142d 100%);
+  color: var(--abc-light);
+  animation: fadeIn 0.8s ease;
+}
+
+.login-gradient {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.login-gradient-1 {
+  width: 420px;
+  height: 420px;
+  background: var(--abc-orange);
+  top: -120px;
+  right: -120px;
+  animation: floatBlob 8s ease-in-out infinite;
+}
+
+.login-gradient-2 {
+  width: 360px;
+  height: 360px;
+  background: var(--abc-gray);
+  bottom: -140px;
+  left: -100px;
+  animation: floatBlob 10s ease-in-out infinite reverse;
+}
+
+.login-hero {
+  padding: 72px 64px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  animation: slideUp 0.7s ease;
+}
+
+.login-badge {
+  width: fit-content;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(133, 142, 163, 0.24);
+  border: 1px solid rgba(133, 142, 163, 0.45);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.login-hero h1 {
+  color: #f8fafc;
+  margin-bottom: 14px;
+  font-size: 2.5rem;
+  line-height: 1.15;
+}
+
+.login-hero p {
+  color: #d1d8e5;
+  max-width: 560px;
+  margin-bottom: 22px;
+}
+
+.login-hero ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.login-hero li {
+  color: #f8fafc;
+  background: rgba(2, 36, 72, 0.46);
+  border: 1px solid rgba(133, 142, 163, 0.35);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.login-card {
+  margin: auto 48px auto 0;
+  padding: 32px 28px;
+  border-radius: 20px;
+  background: rgba(133, 142, 163, 0.15);
+  border: 1px solid rgba(133, 142, 163, 0.32);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.35);
+  position: relative;
+  z-index: 1;
+  text-align: left;
+  animation: slideUp 0.9s ease;
+}
+
+.login-card h2 {
+  margin: 0 0 4px;
+  color: #fff;
+}
+
+.login-card p {
+  margin: 0 0 20px;
+  color: #e2e8f4;
+}
+
+.login-form {
+  display: grid;
+  gap: 12px;
+}
+
+.login-form label {
+  font-size: 0.9rem;
+  color: #f1f5f9;
+}
+
+.login-form input {
+  border: 1px solid rgba(133, 142, 163, 0.65);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(2, 36, 72, 0.55);
+  color: #f8fafc;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-form input:focus {
+  border-color: var(--abc-orange);
+  box-shadow: 0 0 0 4px rgba(238, 114, 25, 0.28);
+}
+
+.login-form button {
+  margin-top: 8px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #f5893d 0%, var(--abc-orange) 55%, #cf5f13 100%);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-form button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(238, 114, 25, 0.42);
+}
+
+.login-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loading-content {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  animation: spin 1s linear infinite;
+}
+
+.login-error {
+  margin-top: 12px;
+  color: #fecaca;
+  background: rgba(127, 29, 29, 0.45);
+  border: 1px solid rgba(248, 113, 113, 0.7);
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+@media (max-width: 980px) {
+  .login-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .login-hero {
+    padding: 32px 20px 12px;
+  }
+
+  .login-card {
+    margin: 12px 20px 24px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes floatBlob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-18px) scale(1.05);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
