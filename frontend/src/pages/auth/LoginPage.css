@@ -241,7 +241,7 @@
   border-color: var(--abc-orange);
 }
 
-.login-form button {
+.login-form > button {
   margin-top: 8px;
   border: 0;
   border-radius: 12px;
@@ -254,12 +254,12 @@
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
-.login-form button:hover:not(:disabled) {
+.login-form > button:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.01);
   box-shadow: 0 14px 28px rgba(238, 114, 25, 0.43);
 }
 
-.login-form button:disabled {
+.login-form > button:disabled {
   opacity: 0.75;
   cursor: not-allowed;
 }
@@ -289,7 +289,8 @@
 }
 
 .version-text {
-  margin-top: 16px;
+  margin-top: auto;
+  padding-top: 18px;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   color: rgba(195, 208, 228, 0.82);
@@ -308,6 +309,7 @@
   padding: 36px 28px;
   display: flex;
   flex-direction: column;
+  animation: panelDrift 10s ease-in-out infinite alternate;
 }
 
 .theme-light .modal-right {
@@ -352,17 +354,18 @@
   z-index: 2;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 10px;
+  margin: 2px 4px 10px 0;
 }
 
 .theme-toggle {
-  border: 1px solid rgba(133, 142, 163, 0.45);
+  border: 1px solid rgba(133, 142, 163, 0.35);
   border-radius: 999px;
-  background: rgba(2, 36, 72, 0.58);
+  background: rgba(2, 36, 72, 0.52);
   display: inline-flex;
-  padding: 3px;
+  padding: 4px;
   cursor: pointer;
   color: #dce4ef;
+  gap: 2px;
 }
 
 .theme-light .theme-toggle {
@@ -371,8 +374,8 @@
 }
 
 .theme-toggle span {
-  min-width: 54px;
-  height: 28px;
+  min-width: 56px;
+  height: 30px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -380,7 +383,7 @@
   font-size: 0.74rem;
   font-weight: 600;
   transition: all 0.2s ease;
-  opacity: 0.75;
+  opacity: 0.82;
 }
 
 .theme-toggle span.active {
@@ -453,5 +456,14 @@
   }
   to {
     transform: translateX(120px);
+  }
+}
+
+@keyframes panelDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 20px 0;
   }
 }
