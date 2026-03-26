@@ -41,10 +41,7 @@ function LoginPage() {
         <section className="modal-left">
           <div className="login-badge">Sistema ABC Mudanzas</div>
           <h1>Operación, trazabilidad y control en una sola plataforma</h1>
-          <p className="subtitle">
-            Una plataforma corporativa para coordinar operaciones de mudanza con mayor control,
-            visibilidad y eficiencia.
-          </p>
+          <p className="subtitle">Accede al tablero operativo de ABC Mudanzas.</p>
 
           <form onSubmit={handleSubmit} className="login-form">
             <div className="input-group">
@@ -115,6 +112,7 @@ function LoginPage() {
           </form>
 
           {error && <p className="login-error">{error}</p>}
+          <p className="version-text">ABC Mudanzas v1</p>
         </section>
 
         <section className="modal-right">
@@ -138,23 +136,6 @@ function LoginPage() {
             <span className="line l1" />
             <span className="line l2" />
             <span className="line l3" />
-          </div>
-
-          <div className="transport-panel">
-            <h3>Centro de control logístico</h3>
-            <ul>
-              <li>Seguimiento por hitos</li>
-              <li>Control documental</li>
-              <li>Alertas inteligentes</li>
-              <li>Visibilidad operativa</li>
-            </ul>
-          </div>
-
-          <div className="icon-strip" aria-hidden>
-            <span>🚢</span>
-            <span>🚛</span>
-            <span>📦</span>
-            <span>🧭</span>
           </div>
         </section>
       </div>
