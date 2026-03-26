@@ -13,16 +13,16 @@ export class PrRol {
   @PrimaryGeneratedColumn({ name: 'rol_id' })
   rolId: number;
 
-  @Column({ name: 'codigo_rol', length: 40, unique: true })
+  @Column({ name: 'codigo_rol', type: 'varchar', length: 40, unique: true })
   codigoRol: string;
 
-  @Column({ name: 'nombre_rol', length: 100 })
+  @Column({ name: 'nombre_rol', type: 'varchar', length: 100 })
   nombreRol: string;
 
-  @Column({ name: 'descripcion', length: 255, nullable: true })
-  descripcion: string | null;
+  @Column({ name: 'descripcion', type: 'varchar', length: 255, nullable: true })
+  descripcion?: string;
 
-  @Column({ name: 'esta_activo', default: true })
+  @Column({ name: 'esta_activo', type: 'boolean', default: true })
   estaActivo: boolean;
 
   @CreateDateColumn({ name: 'creado_en' })

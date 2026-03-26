@@ -25,11 +25,11 @@ export class PrPersona {
   @Column({ name: 'apellidos', length: 80 })
   apellidos: string;
 
-  @Column({ name: 'correo_electronico', length: 120, nullable: true })
-  correoElectronico: string | null;
+@Column({ name: 'correo_electronico', type: 'varchar', length: 120, nullable: true })
+correoElectronico?: string;
 
-  @Column({ name: 'telefono', length: 30, nullable: true })
-  telefono: string | null;
+@Column({ name: 'telefono', type: 'varchar', length: 30, nullable: true })
+telefono?: string;
 
   @Column({ name: 'esta_activo', default: true })
   estaActivo: boolean;

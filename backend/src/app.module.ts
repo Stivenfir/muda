@@ -17,10 +17,10 @@ import { PrRol } from './modules/rrhh/entities/pr-rol.entity';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.DB_HOST || 'mysql',
+      host: process.env.DB_HOST || '127.0.0.1',
       port: Number(process.env.DB_PORT || 3306),
       username: process.env.DB_USERNAME || 'root',
-      password: process.env.DB_PASSWORD || 'root123',
+      password: process.env.DB_PASSWORD || undefined,
       database: process.env.DB_DATABASE || 'abcmudanzas',
       entities: [PrPersona, PrEmpleado, PrRol, PrEmpleadoRol],
       synchronize: false,
