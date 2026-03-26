@@ -210,31 +210,35 @@
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
-  border: 0;
-  background: transparent;
+  border: 1px solid rgba(133, 142, 163, 0.4);
+  background: rgba(2, 36, 72, 0.45);
   cursor: pointer;
-  color: #c8d3e5;
+  color: #eef4ff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 3;
 }
 
 .password-toggle svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 .password-toggle:hover {
   color: #ffffff;
-  transform: translateY(-1px);
+  transform: translateY(-50%);
+  background: rgba(2, 36, 72, 0.62);
 }
 
 .theme-light .password-toggle {
-  color: #4f6689;
+  color: #2f4f75;
+  background: rgba(255, 255, 255, 0.86);
+  border-color: rgba(133, 142, 163, 0.55);
 }
 
 .input-group input:focus {
