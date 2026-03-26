@@ -27,8 +27,25 @@ function LoginPage() {
     <div className="login-shell">
       <div className="login-gradient login-gradient-1" />
       <div className="login-gradient login-gradient-2" />
+      <div className="login-particles" />
 
       <section className="login-hero">
+        <div className="network-overlay" aria-hidden>
+          <span className="network-line line-a" />
+          <span className="network-line line-b" />
+          <span className="network-line line-c" />
+          <span className="network-node node-a" />
+          <span className="network-node node-b" />
+          <span className="network-node node-c" />
+        </div>
+
+        <div className="transport-icons" aria-hidden>
+          <span>🚢</span>
+          <span>🚛</span>
+          <span>📦</span>
+          <span>🧭</span>
+        </div>
+
         <div className="login-badge">Sistema ABC Mudanzas</div>
         <h1>Movilidad internacional con control total</h1>
         <p>
@@ -36,9 +53,15 @@ function LoginPage() {
           tiempo real.
         </p>
         <ul>
-          <li>✔ Seguimiento de operación por hitos</li>
-          <li>✔ Control documental y evidencias</li>
-          <li>✔ Alertas, incidencias y auditoría integrada</li>
+          <li>
+            <span className="benefit-icon">✓</span> Seguimiento en tiempo real
+          </li>
+          <li>
+            <span className="benefit-icon">✓</span> Control documental
+          </li>
+          <li>
+            <span className="benefit-icon">✓</span> Alertas inteligentes
+          </li>
         </ul>
       </section>
 
@@ -47,24 +70,28 @@ function LoginPage() {
         <p>Inicia sesión para continuar.</p>
 
         <form onSubmit={handleSubmit} className="login-form">
-          <label htmlFor="username">Usuario</label>
-          <input
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Ingresa tu usuario"
-            autoComplete="username"
-          />
+          <div className="input-group">
+            <label htmlFor="username">Usuario</label>
+            <input
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Ingresa tu usuario"
+              autoComplete="username"
+            />
+          </div>
 
-          <label htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Ingresa tu contraseña"
-            autoComplete="current-password"
-          />
+          <div className="input-group">
+            <label htmlFor="password">Contraseña</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Ingresa tu contraseña"
+              autoComplete="current-password"
+            />
+          </div>
 
           <button type="submit" disabled={loading} className={loading ? 'is-loading' : ''}>
             {loading ? (
