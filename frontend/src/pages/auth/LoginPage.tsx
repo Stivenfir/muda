@@ -130,7 +130,7 @@ function LoginPage() {
           <div className="route-grid" aria-hidden>
             <header className="ops-header">
               <p>Ventajas del sistema ABC Mudanzas</p>
-              <strong>Plataforma integral para gestionar todo el proceso</strong>
+              <strong>Tecnología diseñada para simplificar tu gestión diaria</strong>
               <div className="ops-pill-row">
                 <span>Gestión centralizada</span>
                 <span>Visibilidad en tiempo real</span>
@@ -138,45 +138,42 @@ function LoginPage() {
               </div>
             </header>
 
-            <div className="route-column">
-              <div className="route-line">
-                <span className="route-progress" />
-                <span className="route-marker" />
+            <div className="benefits-grid">
+              <div className="benefit-card">
+                <strong>Automatización inteligente</strong>
+                <span>Reduce tareas manuales y errores repetitivos.</span>
               </div>
 
-              <div className="route-step is-complete">
-                <div className="step-meta">
-                  <strong>Inventario y embalaje</strong>
-                  <span>Hoy · 08:10</span>
-                </div>
-                <small className="status-chip status-ok">Completado</small>
+              <div className="benefit-card">
+                <strong>Control centralizado</strong>
+                <span>Un solo panel para coordinar toda la empresa.</span>
               </div>
 
-              <div className="route-step is-active">
-                <div className="step-meta">
-                  <strong>Despacho internacional</strong>
-                  <span>ETA puerto · 6h</span>
-                </div>
-                <small className="status-chip status-live">En tránsito</small>
+              <div className="benefit-card">
+                <strong>Visibilidad completa</strong>
+                <span>Información actualizada para decisiones rápidas.</span>
               </div>
 
-              <div className="route-step">
-                <div className="step-meta">
-                  <strong>Aduana y entrega final</strong>
-                  <span>Programado · 29 Mar</span>
-                </div>
-                <small className="status-chip">Pendiente</small>
+              <div className="benefit-card">
+                <strong>Ahorro operativo</strong>
+                <span>Menos retrabajos y mejor uso de recursos.</span>
+              </div>
+
+              <div className="system-signal">
+                <span className="signal-bar signal-bar-a" />
+                <span className="signal-bar signal-bar-b" />
+                <span className="signal-bar signal-bar-c" />
               </div>
             </div>
 
             <div className="kpi-row">
               <div className="kpi-box">
                 <span>Automatización del sistema</span>
-                <strong>10 hitos ejecutados sin fricción</strong>
+                <strong>35% menos tareas manuales</strong>
               </div>
               <div className="kpi-box">
-                <span>Último evento validado</span>
-                <strong>Control documental completado</strong>
+                <span>Gestión unificada</span>
+                <strong>1 panel para todo el equipo</strong>
               </div>
             </div>
           </div>
