@@ -75,10 +75,10 @@ function LoginPage() {
                   {showPassword ? (
                     <svg viewBox="0 0 24 24" aria-hidden>
                       <path
-                        d="M3 3l18 18m-3.6-3.6A10 10 0 012 12a10 10 0 014.2-4.9M10.7 10.7a2 2 0 102.6 2.6M14.1 14.1A4 4 0 019.9 9.9M9 4.7A10 10 0 0112 4c4.8 0 8.7 3.3 10 8a10.3 10.3 0 01-2.3 3.9"
+                        d="M3 3l18 18M10.6 10.6a2 2 0 102.8 2.8M9.5 4.8A10.5 10.5 0 0112 4c5.6 0 9.2 4.4 10 8a11 11 0 01-2.8 4.3M6.5 7.1A11.2 11.2 0 002 12c.8 3.6 4.4 8 10 8a10.4 10.4 0 004.1-.8"
                         fill="none"
                         stroke="currentColor"
-                        strokeWidth="1.8"
+                        strokeWidth="2.1"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
@@ -89,7 +89,7 @@ function LoginPage() {
                         d="M2 12s3.6-8 10-8 10 8 10 8-3.6 8-10 8S2 12 2 12zm10 4a4 4 0 100-8 4 4 0 000 8z"
                         fill="none"
                         stroke="currentColor"
-                        strokeWidth="1.8"
+                        strokeWidth="2.1"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
@@ -112,7 +112,6 @@ function LoginPage() {
           </form>
 
           {error && <p className="login-error">{error}</p>}
-          <p className="version-text">ABC Mudanzas v1</p>
         </section>
 
         <section className="modal-right">
@@ -129,16 +128,43 @@ function LoginPage() {
           </div>
 
           <div className="route-grid" aria-hidden>
-            <span className="dot d1" />
-            <span className="dot d2" />
-            <span className="dot d3" />
-            <span className="dot d4" />
-            <span className="line l1" />
-            <span className="line l2" />
-            <span className="line l3" />
+            <header className="ops-header">
+              <p>Ventajas del sistema ABC Mudanzas</p>
+              <strong>Tecnología diseñada para simplificar tu gestión diaria</strong>
+              <div className="ops-pill-row">
+                <span>Gestión centralizada</span>
+                <span>Ahorro de tiempo y recursos</span>
+              </div>
+            </header>
+
+            <div className="system-visual">
+              <div className="system-orbit">
+                <span className="orbit-dot orbit-dot-a" />
+                <span className="orbit-dot orbit-dot-b" />
+                <span className="orbit-dot orbit-dot-c" />
+              </div>
+
+              <div className="system-caption">
+                <strong>Una sola plataforma</strong>
+                <span>Automatiza tareas, concentra datos y acelera decisiones.</span>
+              </div>
+            </div>
+
+            <div className="kpi-row">
+              <div className="kpi-box">
+                <span>Automatización</span>
+                <strong>35% menos tareas manuales</strong>
+              </div>
+              <div className="kpi-box">
+                <span>Visibilidad</span>
+                <strong>Control en tiempo real</strong>
+              </div>
+            </div>
           </div>
         </section>
       </div>
+
+      <p className="version-text">ABC Mudanzas v1</p>
     </div>
   );
 }
