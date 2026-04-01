@@ -27,7 +27,7 @@ function LoginPage() {
     });
 
     if (result) {
-      navigate('/profile');
+      navigate('/dashboard');
     }
   };
 
