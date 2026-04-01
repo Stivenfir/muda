@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { PrEmpleadoRol } from './pr-empleado-rol.entity';
+import { PrRolPermiso } from './pr-rol-permiso.entity';
 
 @Entity('pr_rol')
 export class PrRol {
@@ -33,4 +34,7 @@ export class PrRol {
 
   @OneToMany(() => PrEmpleadoRol, (empleadoRol) => empleadoRol.rol)
   empleados: PrEmpleadoRol[];
+
+  @OneToMany(() => PrRolPermiso, (rolPermiso) => rolPermiso.rol)
+  permisos: PrRolPermiso[];
 }
