@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getProfile, loginRequest } from '../services/authService';
-import { getToken, removeToken, setToken } from '../utils/storage';
+import { getProfile, loginRequest, logoutRequest } from '../services/authService';
+import {
+  getRefreshToken,
+  getToken,
+  removeRefreshToken,
+  removeToken,
+  setRefreshToken,
+  setToken,
+} from '../utils/storage';
 import type {
   LoginRequest,
   LoginResponse,
@@ -26,6 +33,7 @@ export const useAuth = () => {
       setUser(profile);
     } catch (err) {
       console.error(err);
+      removeRefreshToken();
       removeToken();
       setUser(null);
     } finally {
@@ -40,6 +48,7 @@ export const useAuth = () => {
 
       const response = await loginRequest(payload);
       setToken(response.access_token);
+      setRefreshToken(response.refresh_token);
 
       const profile = await getProfile();
       setUser(profile);
@@ -47,6 +56,7 @@ export const useAuth = () => {
       return response;
     } catch (err) {
       console.error(err);
+      removeRefreshToken();
       setError('Credenciales inválidas');
       return null;
     } finally {
@@ -55,7 +65,16 @@ export const useAuth = () => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    const refreshToken = getRefreshToken() || undefined;
+
+    try {
+      await logoutRequest(refreshToken);
+    } catch (err) {
+      console.error(err);
+    }
+
+    removeRefreshToken();
     removeToken();
     setUser(null);
   };
