@@ -22,6 +22,11 @@ Este módulo **no reemplaza** Clientify. Reutiliza la integración existente con
 
 Si necesitas apuntar a otro host interno, define:
 - `CLIENTIFY_INTERNAL_BASE_URL=http://host-interno:puerto`
+- `CLIENTIFY_INTERNAL_API_KEY=abc_clientify_2026`
+
+Defaults actuales:
+- Base URL fallback: `http://127.0.0.1:3001`
+- API Key fallback: `abc_clientify_2026`
 
 ## Estructura de respuesta
 ```json
