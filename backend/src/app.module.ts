@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppInfoModule } from './modules/app-info/app-info.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
+import { MudanzasDashboardModule } from './modules/mudanzas-dashboard/mudanzas-dashboard.module';
 import { UsersModule } from './modules/users/users.module';
 import { PrAuthAuditoria } from './modules/rrhh/entities/pr-auth-auditoria.entity';
 import { PrEmpleado } from './modules/rrhh/entities/pr-empleado.entity';
@@ -42,6 +43,7 @@ import { PrRolPermiso } from './modules/rrhh/entities/pr-rol-permiso.entity';
     AppInfoModule,
     AuthModule,
     UsersModule,
+    MudanzasDashboardModule,
   ],
 })
 export class AppModule {}
