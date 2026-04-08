@@ -18,6 +18,9 @@
    - `DB_USERNAME=root`
    - `DB_PASSWORD=` (vacío)
    - `DB_DATABASE=abcmudanzas`
+   - `JWT_SECRET=<secreto-largo-obligatorio>`
+   - `JWT_EXPIRES_IN_SECONDS=28800`
+   - `AUTH_REFRESH_TTL_DAYS=7`
 
 ## Opción A - Usar XAMPP MySQL (tu caso actual)
 1. Inicia MySQL en XAMPP.
