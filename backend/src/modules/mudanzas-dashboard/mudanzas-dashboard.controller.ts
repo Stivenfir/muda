@@ -23,7 +23,8 @@ export class MudanzasDashboardController {
   @ApiOperation({
     summary: 'Refresca manualmente el dashboard comercial de mudanzas',
   })
-  refreshComercialDashboard(@Body() query: ComercialDashboardQueryDto) {
-    return this.dashboardService.refreshComercialDashboard(query);
+  async refreshComercialDashboard(@Body() query: ComercialDashboardQueryDto) {
+    await this.dashboardService.refreshComercialDashboard(query);
+    return this.dashboardService.getComercialDashboard(query);
   }
 }

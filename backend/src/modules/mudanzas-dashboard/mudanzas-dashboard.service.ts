@@ -72,6 +72,8 @@ export class MudanzasDashboardService {
     stage: string;
     pageSize: number;
   }): string {
-    return `mudanzas:dashboard:comercial:${params.pipeline}:${params.stage}:${params.pageSize}`;
+    const pipelineKey = params.pipeline.trim().toLowerCase();
+    const stageKey = params.stage.trim().toLowerCase().replace(/\s+/g, '_');
+    return `mudanzas:dashboard:comercial:${pipelineKey}:${stageKey}:${params.pageSize}`;
   }
 }
