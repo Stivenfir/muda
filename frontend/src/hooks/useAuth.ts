@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { getProfile, loginRequest, logoutRequest } from '../services/authService';
 import {
@@ -56,8 +57,25 @@ export const useAuth = () => {
       return response;
     } catch (err) {
       console.error(err);
+      removeToken();
       removeRefreshToken();
-      setError('Credenciales inválidas');
+
+      if (axios.isAxiosError(err)) {
+        if (err.code === 'ECONNABORTED') {
+          setError(
+            'El backend tardó demasiado en responder. Verifica que el servicio API esté activo.',
+          );
+        } else if (!err.response) {
+          setError('No hay conexión con el backend. Revisa API y CORS.');
+        } else if (err.response.status === 401) {
+          setError('Credenciales inválidas');
+        } else {
+          setError(`Error de autenticación (${err.response.status}).`);
+        }
+      } else {
+        setError('No se pudo iniciar sesión. Intenta nuevamente.');
+      }
+
       return null;
     } finally {
       setLoading(false);

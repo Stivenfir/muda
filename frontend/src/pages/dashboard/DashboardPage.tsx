@@ -1,73 +1,16 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { getComercialDashboard } from '../../services/mudanzasDashboardService';
+import type { ComercialDashboardResponse } from '../../types/mudanzasDashboard.types';
 import './DashboardPage.css';
-
-type Metric = {
-  label: string;
-  value: string;
-  trend: string;
-  trendType: 'up' | 'down';
-};
 
 type QuickAction = {
   label: string;
 };
 
-type AlertItem = {
-  text: string;
-  count?: number;
-};
-
-type OperationRow = {
-  code: string;
-  client: string;
-  route: string;
-  phase: string;
-  health: 'ok' | 'warning';
-  daysInPhase: string;
-  updatedAt: string;
-};
-
-const metrics: Metric[] = [
-  { label: 'Operaciones Activas', value: '5', trend: '+12% vs mes anterior', trendType: 'up' },
-  { label: 'Pipeline Total', value: '$94.5K', trend: '+8% vs mes anterior', trendType: 'up' },
-  { label: 'Tasa de Conversión', value: '18%', trend: '+5% vs mes anterior', trendType: 'up' },
-  { label: 'Cotizaciones Pendientes', value: '3', trend: '-2% vs mes anterior', trendType: 'down' },
-];
-
 const quickActions: QuickAction[] = [
-  { label: 'Nuevo Lead' },
-  { label: 'Nuevo Costeo' },
-  { label: 'Nuevo Estimado' },
-  { label: 'Nueva Operación' },
-];
-
-const alerts: AlertItem[] = [
-  { text: '1 incidencia(s) abiertas' },
-  { text: 'Aprobaciones Pendientes', count: 2 },
-  { text: 'Cotizaciones Vencidas' },
-];
-
-const operations: OperationRow[] = [
-  {
-    code: 'ABC-EXP-2026-001',
-    client: 'Juan Pérez',
-    route: 'Bogotá → Miami, FL',
-    phase: 'expo_destino_agente',
-    health: 'ok',
-    daysInPhase: '0d',
-    updatedAt: 'hoy',
-  },
-  {
-    code: 'ABC-EXP-2026-002',
-    client: 'Sarah Johnson',
-    route: 'Lima → Houston, TX',
-    phase: 'expo_transito',
-    health: 'warning',
-    daysInPhase: '6d',
-    updatedAt: 'hace 2 días',
-  },
+  { label: 'Registrar Nueva Operación' },
 ];
 
 const sidebarGroups = [
@@ -114,22 +57,26 @@ const toInitials = (name: string) => {
     .join('');
 };
 
+const formatCurrency = (value: number): string =>
+  new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(value || 0);
+
 function DashboardPage() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const [dashboard, setDashboard] = useState<ComercialDashboardResponse | null>(null);
+  const [loadingDashboard, setLoadingDashboard] = useState(true);
+  const [dashboardError, setDashboardError] = useState<string | null>(null);
+
   const displayName = useMemo(() => toDisplayName(user?.username), [user?.username]);
   const initials = useMemo(() => toInitials(displayName), [displayName]);
   const primaryRole = useMemo(
     () => toDisplayName(user?.role || user?.roles?.[0] || 'Administrador'),
     [user?.role, user?.roles],
   );
-  const greetingByHour = useMemo(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Buenos días';
-    if (hour < 19) return 'Buenas tardes';
-    return 'Buenas noches';
-  }, []);
-
   const weekday = useMemo(
     () =>
       new Date().toLocaleDateString('es-CO', {
@@ -141,10 +88,47 @@ function DashboardPage() {
     [],
   );
 
+  useEffect(() => {
+    const loadDashboard = async () => {
+      try {
+        setLoadingDashboard(true);
+        setDashboardError(null);
+        const response = await getComercialDashboard();
+        setDashboard(response);
+      } catch (error) {
+        console.error(error);
+        setDashboardError('No fue posible cargar el flujo comercial en este momento.');
+      } finally {
+        setLoadingDashboard(false);
+      }
+    };
+
+    loadDashboard();
+  }, []);
+
   const handleLogout = async () => {
     await logout();
     navigate('/login');
   };
+
+  const summaryCards = [
+    {
+      label: 'Leads nuevos',
+      value: String(dashboard?.summary.leadsNuevos ?? 0),
+    },
+    {
+      label: 'Cotizaciones enviadas',
+      value: String(dashboard?.summary.cotizacionesEnviadas ?? 0),
+    },
+    {
+      label: 'Operaciones ganadas',
+      value: String(dashboard?.summary.operacionesGanadas ?? 0),
+    },
+    {
+      label: 'Valor pipeline',
+      value: formatCurrency(dashboard?.summary.valorPipeline ?? 0),
+    },
+  ];
 
   return (
     <div className="admin-dashboard">
@@ -162,7 +146,11 @@ function DashboardPage() {
             <section key={group.title}>
               <p>{group.title}</p>
               {group.items.map((item) => (
-                <button key={item} className={item === 'Dashboard' ? 'is-active' : ''} type="button">
+                <button
+                  key={item}
+                  className={item === 'Flujo Comercial' ? 'is-active' : ''}
+                  type="button"
+                >
                   {item}
                 </button>
               ))}
@@ -187,15 +175,13 @@ function DashboardPage() {
       <main className="dashboard-content">
         <header className="dashboard-topbar">
           <div>
-            <h1>
-              {greetingByHour}, {displayName}
-            </h1>
-            <p>{weekday}</p>
+            <h1>Mi Escritorio Comercial</h1>
+            <p>Centro de control del ejecutivo comercial · {weekday}</p>
           </div>
 
           <div className="topbar-actions">
             {quickActions.map((action) => (
-              <button key={action.label} type="button">
+              <button key={action.label} type="button" className="primary-action">
                 {action.label}
               </button>
             ))}
@@ -208,95 +194,95 @@ function DashboardPage() {
           </div>
         </header>
 
-        <section className="metrics-grid">
-          {metrics.map((metric) => (
-            <article key={metric.label} className="metric-card">
-              <p>{metric.label}</p>
-              <strong>{metric.value}</strong>
-              <small className={metric.trendType === 'up' ? 'trend-up' : 'trend-down'}>
-                {metric.trend}
-              </small>
-            </article>
-          ))}
-        </section>
+        {loadingDashboard && <section className="card-block">Cargando flujo comercial...</section>}
+        {dashboardError && <section className="card-block error-box">{dashboardError}</section>}
 
-        <section className="card-block">
-          <h2>Alertas Accionables</h2>
-          <div className="highlight-row">
-            <span>{alerts[0].text}</span>
-            <button type="button">Gestionar</button>
-          </div>
-        </section>
+        {!loadingDashboard && !dashboardError && dashboard && (
+          <>
+            <section className="segment-strip">
+              <span>🌐 Agentes {dashboard.quotationPending.length}</span>
+              <span>🏢 Corporativo 2</span>
+              <span>👤 Persona Natural 1</span>
+            </section>
 
-        <section className="card-block">
-          <div className="alert-lines">
-            {alerts.slice(1).map((alert) => (
-              <p key={alert.text}>
-                {alert.text}
-                {alert.count ? <span>{alert.count}</span> : null}
-              </p>
-            ))}
-          </div>
+            <section className="focus-banner">
+              <strong>Negocio del Agente</strong>
+              <small>Requerimientos de agentes internacionales</small>
+            </section>
 
-          <div className="list-items">
-            <div>
-              <span>Enviada: 25/3/2026</span>
-              <em>Venció: 31/12/1969</em>
-              <div className="item-actions">
-                <button type="button">Renovar</button>
-                <button type="button">Cerrar</button>
-              </div>
-            </div>
-            <div>
-              <span>Enviada: 26/3/2026</span>
-              <em>Venció: 31/12/1969</em>
-              <div className="item-actions">
-                <button type="button">Renovar</button>
-                <button type="button">Cerrar</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="card-block table-block">
-          <div className="table-title">
-            <h2>Mis Operaciones</h2>
-            <button type="button">Ver todas</button>
-          </div>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Cliente</th>
-                <th>Origen → Destino</th>
-                <th>Fase</th>
-                <th>Salud</th>
-                <th>Días en fase</th>
-                <th>Última actualización</th>
-              </tr>
-            </thead>
-            <tbody>
-              {operations.map((row) => (
-                <tr key={row.code}>
-                  <td>{row.code}</td>
-                  <td>{row.client}</td>
-                  <td>{row.route}</td>
-                  <td>
-                    <span className="phase-chip">{row.phase}</span>
-                  </td>
-                  <td>
-                    <span className={`health-dot ${row.health === 'ok' ? 'is-ok' : 'is-warning'}`} />
-                  </td>
-                  <td>{row.daysInPhase}</td>
-                  <td>{row.updatedAt}</td>
-                </tr>
+            <section className="metrics-grid">
+              {summaryCards.map((metric) => (
+                <article key={metric.label} className="metric-card">
+                  <strong>{metric.value}</strong>
+                  <p>{metric.label}</p>
+                </article>
               ))}
-            </tbody>
-          </table>
-        </section>
+            </section>
 
-        <footer className="dashboard-footer">ABC Mudanzas · Dashboard Administrador · Fase 1 Comercial</footer>
+            <section className="card-block">
+              <div className="section-title">
+                <h2>Mis Tareas Pendientes</h2>
+                <span>{dashboard.pendingTasks.length}</span>
+              </div>
+
+              <div className="task-grid">
+                {dashboard.pendingTasks.map((task) => (
+                  <article key={task.id} className={task.source === 'clientify' ? 'task-card is-live' : 'task-card'}>
+                    <div className="task-top">
+                      <strong>{task.title}</strong>
+                      <small>{task.dueInDays}d</small>
+                    </div>
+                    <p>{task.subtitle}</p>
+                    <button type="button">{task.actionLabel}</button>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="card-block table-block">
+              <div className="section-title">
+                <h2>Mis Operaciones</h2>
+                <span>{dashboard.operations.length}</span>
+              </div>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Tipo</th>
+                    <th>Origen → Destino</th>
+                    <th>Etapa actual</th>
+                    <th>Docs</th>
+                    <th>Próxima acción</th>
+                    <th>Días</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dashboard.operations.map((row) => (
+                    <tr key={row.code}>
+                      <td>{row.code}</td>
+                      <td>{row.client}</td>
+                      <td>{row.type}</td>
+                      <td>{row.route}</td>
+                      <td>
+                        <span className="phase-chip">{row.stage}</span>
+                      </td>
+                      <td>{row.docsProgress}</td>
+                      <td>{row.nextAction}</td>
+                      <td>{row.daysInStage}d</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            <footer className="dashboard-footer">
+              Fuente: {dashboard.meta.source} · Cache: {dashboard.meta.cached ? 'Sí' : 'No'} · Generado:{' '}
+              {new Date(dashboard.meta.generatedAt).toLocaleString('es-CO')}
+            </footer>
+          </>
+        )}
       </main>
     </div>
   );
