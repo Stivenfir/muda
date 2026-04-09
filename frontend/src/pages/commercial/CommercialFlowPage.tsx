@@ -15,6 +15,9 @@ function CommercialFlowPage() {
   const [dashboard, setDashboard] = useState<ComercialDashboardResponse | null>(null);
   const [loadingDashboard, setLoadingDashboard] = useState(true);
   const [dashboardError, setDashboardError] = useState<string | null>(null);
+  const [activeSegment, setActiveSegment] = useState<'agentes' | 'corporativo' | 'personaNatural'>(
+    'agentes',
+  );
 
   const weekday = useMemo(
     () =>
@@ -58,6 +61,28 @@ function CommercialFlowPage() {
     },
   ];
 
+  const segmentCounts = useMemo(() => {
+    const pending = dashboard?.quotationPending ?? [];
+    const totals = {
+      agentes: 0,
+      corporativo: 0,
+      personaNatural: 0,
+    };
+
+    for (const item of pending) {
+      const company = (item.companyName || '').toLowerCase();
+      if (company.includes('persona natural')) {
+        totals.personaNatural += 1;
+      } else if (company.includes('corporat')) {
+        totals.corporativo += 1;
+      } else {
+        totals.agentes += 1;
+      }
+    }
+
+    return totals;
+  }, [dashboard?.quotationPending]);
+
   return (
     <AdminShell
       title="Mi Escritorio Comercial"
@@ -65,15 +90,39 @@ function CommercialFlowPage() {
       activeItem="Flujo Comercial"
       quickActions={[{ label: 'Registrar Nueva Operación' }]}
     >
-      {loadingDashboard && <section className="flow-card">Cargando flujo comercial...</section>}
+      {loadingDashboard && (
+        <section className="flow-loader-card" aria-live="polite">
+          <div className="flow-loader-ring" />
+          <strong>Cargando escritorio comercial</strong>
+          <p>Sincronizando oportunidades y tareas desde Clientify...</p>
+        </section>
+      )}
       {dashboardError && <section className="flow-card flow-error">{dashboardError}</section>}
 
       {!loadingDashboard && !dashboardError && dashboard && (
         <>
           <section className="flow-segment-strip">
-            <span>🌐 Agentes {dashboard.quotationPending.length}</span>
-            <span>🏢 Corporativo 2</span>
-            <span>👤 Persona Natural 1</span>
+            <button
+              type="button"
+              className={activeSegment === 'agentes' ? 'is-active' : ''}
+              onClick={() => setActiveSegment('agentes')}
+            >
+              🌐 Agentes <b>{segmentCounts.agentes}</b>
+            </button>
+            <button
+              type="button"
+              className={activeSegment === 'corporativo' ? 'is-active' : ''}
+              onClick={() => setActiveSegment('corporativo')}
+            >
+              🏢 Corporativo <b>{segmentCounts.corporativo}</b>
+            </button>
+            <button
+              type="button"
+              className={activeSegment === 'personaNatural' ? 'is-active' : ''}
+              onClick={() => setActiveSegment('personaNatural')}
+            >
+              👤 Persona Natural <b>{segmentCounts.personaNatural}</b>
+            </button>
           </section>
 
           <section className="flow-banner">
