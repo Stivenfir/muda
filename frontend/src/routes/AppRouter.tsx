@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from '../pages/auth/LoginPage';
+import CommercialFlowPage from '../pages/commercial/CommercialFlowPage';
 import DashboardPage from '../pages/dashboard/DashboardPage';
 import PrivateRoute from './PrivateRoute';
 import { getToken } from '../utils/storage';
@@ -19,6 +20,15 @@ function AppRouter() {
           element={
             <PrivateRoute>
               <DashboardPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/comercial"
+          element={
+            <PrivateRoute>
+              <CommercialFlowPage />
             </PrivateRoute>
           }
         />
