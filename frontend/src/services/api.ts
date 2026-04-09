@@ -3,6 +3,7 @@ import { getToken } from '../utils/storage';
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  timeout: Number(import.meta.env.VITE_API_TIMEOUT_MS || 12000),
 });
 
 api.interceptors.request.use((config) => {

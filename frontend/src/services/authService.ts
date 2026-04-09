@@ -16,3 +16,7 @@ export const getProfile = async (): Promise<ProfileResponse> => {
   const response = await api.get<ProfileResponse>('/auth/profile');
   return response.data;
 };
+
+export const logoutRequest = async (refreshToken?: string): Promise<void> => {
+  await api.post('/auth/logout', { refreshToken });
+};
